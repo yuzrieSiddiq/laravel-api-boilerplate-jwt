@@ -36,4 +36,13 @@ $api->version('v1', function (Router $api) {
             'message' => 'This is a simple example of item returned by your APIs. Everyone can see it.'
         ]);
     });
+
+    $api->group(['middleware' => 'api.auth'], function ($api) {
+        $api->post('book/store', 'App\\Api\\V1\\Controllers\\BookController@store');
+        $api->get('books', 'App\\Api\\V1\\Controllers\\BookController@index');
+    	$api->get('books/{id}', 'App\\Api\\V1\Controllers\\BookController@show');
+    	$api->post('books', 'App\\Api\\V1\\Controllers\\BookController@store');
+    	$api->delete('books/{id}', 'App\\Api\\V1\Controllers\\BookController@destroy');
+    });
+
 });
